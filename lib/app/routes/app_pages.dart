@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/chapter/bindings/chapter_binding.dart';
+import '../modules/chapter/views/chapter_view.dart';
 import '../modules/detail_comics/bindings/detail_comics_binding.dart';
 import '../modules/detail_comics/views/detail_comics_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -20,8 +22,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DETAIL_COMICS,
-      page: () => const DetailComicsView(),
+      page: () => DetailComicsView(),
       binding: DetailComicsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHAPTER,
+      page: () => ChapterView(),
+      binding: ChapterBinding(),
     ),
   ];
 }
