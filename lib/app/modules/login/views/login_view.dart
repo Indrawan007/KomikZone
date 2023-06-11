@@ -13,82 +13,113 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Ungu,
+      backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              Container(
-                height: 200,
-                width: 200,
-                child: Image.asset("assets/images/logo.png"),
-              ),
-              TextFormField(
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintText: "Email",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                textInputAction: TextInputAction.done,
-                keyboardType: TextInputType.visiblePassword,
-                decoration: InputDecoration(
-                  hintText: "Password",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
+        child: ListView(
+          children: [
+            AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
                 children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () => Get.offAllNamed(Routes.HOME),
-                      child: Text("Login"),
+                  Container(
+                    height: 100,
+                    width: 100,
+                    child: Image.asset("assets/images/logo.png"),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Login with your Account",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      textAlign: TextAlign.start,
                     ),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text("- Or sign in with -"),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SignInButton(Buttons.facebook, mini: true, onPressed: () {}),
-                  SignInButton(Buttons.email, mini: true, onPressed: () {}),
-                  SignInButton(Buttons.twitter, mini: true, onPressed: () {}),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Text("If you don't have account"),
-                  GestureDetector(
-                    onTap: () => Get.toNamed(Routes.REGIST),
-                    child: Text("Sing Up"),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      hintText: "Email",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    textInputAction: TextInputAction.done,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      hintText: "Password",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Ungu,
+                            minimumSize: Size(double.infinity, 46),
+                          ),
+                          onPressed: () => Get.offAllNamed(Routes.HOME),
+                          child: Text("Login"),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text("- Or sign in with -"),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SignInButton(Buttons.google, onPressed: () {}),
+                  SizedBox(
+                    height: 70,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text("Don't have an account? "),
+                      GestureDetector(
+                        onTap: () => Get.toNamed(
+                          Routes.REGIST,
+                        ),
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(color: Ungu),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

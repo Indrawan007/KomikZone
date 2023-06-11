@@ -11,14 +11,19 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
+        backgroundColor: Colors.black,
         leading: Row(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: CircleAvatar(
-                backgroundColor: Colors.black,
-                child: Icon(Icons.person),
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ),
               ),
             ),
             Column(
