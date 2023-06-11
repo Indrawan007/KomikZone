@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:komikzone/app/controllers/auth_controller.dart';
 import 'package:komikzone/app/routes/app_pages.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 import '../controllers/login_controller.dart';
+
+final authC = Get.find<AuthController>();
 
 var Ungu = Color(0xff5B0D80);
 
@@ -80,7 +83,7 @@ class LoginView extends GetView<LoginController> {
                             backgroundColor: Ungu,
                             minimumSize: Size(double.infinity, 46),
                           ),
-                          onPressed: () => Get.offAllNamed(Routes.HOME),
+                          onPressed: () => authC.login(),
                           child: Text("Login"),
                         ),
                       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:komikzone/app/data/model/comics.dart';
+import 'package:komikzone/app/modules/login/views/login_view.dart';
 import 'package:komikzone/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
@@ -36,7 +37,9 @@ class HomeView extends GetView<HomeController> {
                 ),
                 Text("60200120047@uin-alauddin.ac.id"),
               ],
-            )
+            ),
+            IconButton(
+                onPressed: () => authC.logout(), icon: Icon(Icons.logout))
           ],
         ),
         leadingWidth: double.infinity,
