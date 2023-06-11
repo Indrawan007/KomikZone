@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "699288414111",
+    "project_id": "komikzone-rain714",
+    "storage_bucket": "komikzone-rain714.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699288414111:android:47f51d827861e5567cffaa",
+        "android_client_info": {
+          "package_name": "com.example.komikzone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699288414111-j71j5pnv1ub7pdbm1f9f3045lpbvs6hj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.komikzone",
+            "certificate_hash": "0924007f918961f6b2b27bd8af6fa81c76bb782f"
+          }
+        },
+        {
+          "client_id": "699288414111-juqvigqbpdrm63qgm9stak1rajmpnube.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq_YTGwSrW6Mwtos9qkuIh1VvNmfc4cJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699288414111-juqvigqbpdrm63qgm9stak1rajmpnube.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
