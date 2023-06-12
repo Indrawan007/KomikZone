@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:komikzone/app/controllers/auth_controller.dart';
-import 'package:komikzone/app/utils/error_page.dart';
-import 'package:komikzone/app/utils/loading_page.dart';
 import 'package:komikzone/app/utils/splash_screen.dart';
 
 import 'app/routes/app_pages.dart';
@@ -16,43 +14,31 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
   final authC = Get.put(AuthController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _initialization,
+      future: Future.delayed(
+        Duration(seconds: 3),
+      ),
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return ErrorPage();
-        }
         if (snapshot.connectionState == ConnectionState.done) {
-          print(snapshot.data);
-          return FutureBuilder(
-            future: Future.delayed(
-              Duration(seconds: 3),
-            ),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return GetMaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  title: "KomikZone",
-                  initialRoute:
-                      authC.isAuth.isTrue ? Routes.HOME : Routes.LOGIN,
-                  // initialRoute:
-                  //     snapshot.data != null && snapshot.data!.emailVerified == true
-                  //         ? Routes.DASHBOARD
-                  //         : Routes.LOGIN,
-                  getPages: AppPages.routes,
-                );
-              }
-              return SplashScreen();
-            },
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: "KomikZone",
+            initialRoute: authC.isAuth.isTrue ? Routes.HOME : Routes.LOGIN,
+            // initialRoute:
+            //     snapshot.data != null && snapshot.data!.emailVerified == true
+            //         ? Routes.DASHBOARD
+            //         : Routes.LOGIN,
+            getPages: AppPages.routes,
           );
         }
-        return LoadingPage();
+        return FutureBuilder(
+          future: authC.firstInitialized(),
+          builder: (context, snapshot) => SplashScreen(),
+        );
       },
     );
   }
