@@ -12,7 +12,7 @@ class AuthController extends GetxController {
   GoogleSignInAccount? _currentUser;
   UserCredential? userCredential;
 
-  UserModel user = UserModel();
+  var user = UserModel().obs;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -30,7 +30,44 @@ class AuthController extends GetxController {
     // mengubah isAuth => true => autoLogin
     try {
       final isSIgnIn = await _googleSignIn.isSignedIn();
+
       if (isSIgnIn) {
+        await _googleSignIn
+            .signInSilently()
+            .then((value) => _currentUser = value);
+        final googleAuth = await _currentUser!.authentication;
+        final credential = GoogleAuthProvider.credential(
+          idToken: googleAuth.idToken,
+          accessToken: googleAuth.accessToken,
+        );
+
+        await FirebaseAuth.instance
+            .signInWithCredential(credential)
+            .then((value) => userCredential = value);
+        print("User Credential");
+
+        // masukkan data ke firebase...
+        CollectionReference users = firestore.collection("Users");
+
+        users.doc(_currentUser!.email).update({
+          "lastSignInTime":
+              userCredential!.user!.metadata.lastSignInTime!.toIso8601String(),
+        });
+
+        final currUser = await users.doc(_currentUser!.email).get();
+        final currUserData = currUser.data() as Map<String, dynamic>;
+
+        user(UserModel(
+          uid: currUserData["uid"],
+          name: currUserData["name"],
+          email: currUserData["email"],
+          photoUrl: currUserData["photoUrl"],
+          status: currUserData["status"],
+          createdAt: currUserData["createdAt"],
+          lastSignInTime: currUserData["lastSignInTime"],
+          updateAt: currUserData["updateAt"],
+        ));
+
         return true;
       }
       return false;
@@ -73,12 +110,12 @@ class AuthController extends GetxController {
 
         final checkuser = await users.doc(_currentUser!.email).get();
 
-        if (checkuser.data() != null) {
+        if (checkuser.data() == null) {
           users.doc(_currentUser!.email).set({
             "uid": userCredential!.user!.uid,
             "name": _currentUser!.displayName,
             "email": _currentUser!.email,
-            "photoUrl": _currentUser!.photoUrl,
+            "photoUrl": _currentUser!.photoUrl ?? "noimage",
             "status": "",
             "createdAt":
                 userCredential!.user!.metadata.creationTime!.toIso8601String(),
@@ -96,7 +133,7 @@ class AuthController extends GetxController {
         final currUser = await users.doc(_currentUser!.email).get();
         final currUserData = currUser.data() as Map<String, dynamic>;
 
-        user = UserModel(
+        user(UserModel(
           uid: currUserData["uid"],
           name: currUserData["name"],
           email: currUserData["email"],
@@ -105,7 +142,7 @@ class AuthController extends GetxController {
           createdAt: currUserData["createdAt"],
           lastSignInTime: currUserData["lastSignInTime"],
           updateAt: currUserData["updateAt"],
-        );
+        ));
 
         isAuth.value = true;
         Get.offAllNamed(Routes.HOME);
@@ -121,5 +158,31 @@ class AuthController extends GetxController {
     await _googleSignIn.disconnect();
     await _googleSignIn.signOut();
     Get.offAllNamed(Routes.LOGIN);
+  }
+
+  void changeProfile(String name) {
+    String date = DateTime.now().toIso8601String();
+
+    CollectionReference users = firestore.collection("Users");
+
+    users.doc(_currentUser!.email).update({
+      // Update firebase
+      "name": name,
+      "lastSignInTime":
+          userCredential!.user!.metadata.lastSignInTime!.toIso8601String(),
+      "updateAt": date
+    });
+
+    // Update Model
+    user.update((user) {
+      user!.name = name;
+      user.lastSignInTime =
+          userCredential!.user!.metadata.lastSignInTime!.toIso8601String();
+      user.updateAt = date;
+    });
+
+    user.refresh();
+
+    Get.defaultDialog(title: "Succes", middleText: "Change Profile Success");
   }
 }

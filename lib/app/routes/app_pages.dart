@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/change_profile/bindings/change_profile_binding.dart';
+import '../modules/change_profile/views/change_profile_view.dart';
 import '../modules/chapter/bindings/chapter_binding.dart';
 import '../modules/chapter/views/chapter_view.dart';
 import '../modules/detail_comics/bindings/detail_comics_binding.dart';
@@ -23,7 +25,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => const HomeView(),
+      page: () => HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -48,8 +50,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFILE,
-      page: () => const ProfileView(),
+      page: () => ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHANGE_PROFILE,
+      page: () => ChangeProfileView(),
+      binding: ChangeProfileBinding(),
     ),
   ];
 }
