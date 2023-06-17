@@ -28,10 +28,6 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: "KomikZone",
             initialRoute: authC.isAuth.isTrue ? Routes.HOME : Routes.LOGIN,
-            // initialRoute:
-            //     snapshot.data != null && snapshot.data!.emailVerified == true
-            //         ? Routes.DASHBOARD
-            //         : Routes.LOGIN,
             getPages: AppPages.routes,
           );
         }
