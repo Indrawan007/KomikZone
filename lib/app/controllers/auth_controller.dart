@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:komikzone/app/data/db/favorite.dart';
+import 'package:komikzone/app/data/model/details.dart';
 import 'package:komikzone/app/data/models/user_model.dart';
 import 'package:komikzone/app/routes/app_pages.dart';
+import 'package:sqflite/sqflite.dart';
 
 class AuthController extends GetxController {
   var isAuth = false.obs;
@@ -184,5 +187,55 @@ class AuthController extends GetxController {
     user.refresh();
 
     Get.defaultDialog(title: "Succes", middleText: "Change Profile Success");
+  }
+
+  DatabaseManager database = DatabaseManager.instance;
+
+  void addFavorite(bool lastRead, Details komik, int indexComic) async {
+    // insert data
+    Database db = await database.db;
+
+    bool flagExist = false;
+
+    if (lastRead == true) {
+      await db.delete("favorite", where: "last_read = 1");
+    } else {
+      List checkData = await db.query("favorite",
+          where:
+              'comic = "${komik.title}" and chapter = "${komik.chapters![indexComic].chapter}" and via = "comic" and index = $indexComic and lastRead = 0');
+      if (checkData.length != 0) {
+        // add data
+        flagExist = true;
+      }
+    }
+
+    if (flagExist == false) {
+      await db.insert(
+        "favorite",
+        {
+          "comic": "${komik.title}",
+          "thumbnail": "${komik.thumbnail}",
+          "chapter": "${komik.chapters![indexComic].chapter}",
+          "via": "comic",
+          "index": indexComic,
+          "last_read": lastRead == true ? 1 : 0,
+        },
+      );
+
+      Get.back(); // tutup dialog
+      Get.snackbar(
+        "Barhasil",
+        "Berhasil menambahkan favorite",
+      );
+    } else {
+      Get.back(); // tutup dialog
+      Get.snackbar(
+        "Terjadi Kesalahan",
+        "Favorite telah tersedia",
+      );
+    }
+
+    var data = await db.query("favorite");
+    print(data);
   }
 }

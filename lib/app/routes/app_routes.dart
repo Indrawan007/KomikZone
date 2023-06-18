@@ -10,6 +10,9 @@ abstract class Routes {
   static const REGIST = _Paths.REGIST;
   static const PROFILE = _Paths.PROFILE;
   static const CHANGE_PROFILE = _Paths.CHANGE_PROFILE;
+  static const SEARCH = _Paths.SEARCH;
+  static const SEARCHING = _Paths.SEARCHING;
+  static const FAVORITE = _Paths.FAVORITE;
 }
 
 abstract class _Paths {
@@ -21,4 +24,7 @@ abstract class _Paths {
   static const REGIST = '/regist';
   static const PROFILE = '/profile';
   static const CHANGE_PROFILE = '/change-profile';
+  static const SEARCH = '/search';
+  static const SEARCHING = '/searching';
+  static const FAVORITE = '/favorite';
 }

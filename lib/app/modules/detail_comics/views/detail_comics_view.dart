@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:komikzone/app/data/model/comics.dart';
 import 'package:komikzone/app/data/model/details.dart';
+import 'package:komikzone/app/modules/login/views/login_view.dart';
 import 'package:komikzone/app/routes/app_pages.dart';
 
 import '../controllers/detail_comics_controller.dart';
@@ -37,7 +38,7 @@ class DetailComicsView extends GetView<DetailComicsController> {
                   itemCount: 1,
                   itemBuilder: (context, index) {
                     Details detail = snapshot.data!;
-                    var total = snapshot.data!.chapters!.length;
+                    // var total = snapshot.data!.chapters!.length;
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -63,39 +64,39 @@ class DetailComicsView extends GetView<DetailComicsController> {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Column(
-                                children: [
-                                  Text("Chapter Awal"),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: Size(130, 30),
-                                    ),
-                                    onPressed: () {
-                                      Get.toNamed(Routes.CHAPTER,
-                                          arguments: detail
-                                              .chapters![total - 1].param);
-                                    },
-                                    child: Text(
-                                        "${detail.chapters![total - 1].chapter}"),
-                                  ),
-                                  Text("Chapter Akhir"),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: Size(130, 30),
-                                    ),
-                                    onPressed: () {
-                                      Get.toNamed(Routes.CHAPTER,
-                                          arguments:
-                                              detail.chapters![index].param);
-                                    },
-                                    child: Text(
-                                        "${detail.chapters![index].chapter}"),
-                                  ),
-                                ],
-                              ),
+                              // SizedBox(
+                              //   width: 10,
+                              // ),
+                              // Column(
+                              //   children: [
+                              //     Text("Chapter Awal"),
+                              //     ElevatedButton(
+                              //       style: ElevatedButton.styleFrom(
+                              //         minimumSize: Size(130, 30),
+                              //       ),
+                              //       onPressed: () {
+                              //         Get.toNamed(Routes.CHAPTER,
+                              //             arguments: detail
+                              //                 .chapters![total - 1].param);
+                              //       },
+                              //       child: Text(
+                              //           "${detail.chapters![total - 1].chapter}"),
+                              //     ),
+                              //     Text("Chapter Akhir"),
+                              //     ElevatedButton(
+                              //       style: ElevatedButton.styleFrom(
+                              //         minimumSize: Size(130, 30),
+                              //       ),
+                              //       onPressed: () {
+                              //         Get.toNamed(Routes.CHAPTER,
+                              //             arguments:
+                              //                 detail.chapters![index].param);
+                              //       },
+                              //       child: Text(
+                              //           "${detail.chapters![index].chapter}"),
+                              //     ),
+                              //   ],
+                              // ),
                             ],
                           ),
                         ),
@@ -120,13 +121,18 @@ class DetailComicsView extends GetView<DetailComicsController> {
                     return Card(
                       child: ListTile(
                         onTap: () {
+                          authC.addFavorite(true, snapshot.data!, index);
                           Get.toNamed(Routes.CHAPTER,
                               arguments: detail.chapters![index].param);
                         },
                         title: Text(
                           "${detail.chapters![index].chapter}",
                         ),
-                        trailing: Icon(Icons.arrow_forward_ios),
+                        trailing: IconButton(
+                            onPressed: () {
+                              authC.addFavorite(false, snapshot.data!, index);
+                            },
+                            icon: Icon(Icons.favorite)),
                       ),
                     );
                   },

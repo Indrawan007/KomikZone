@@ -111,11 +111,18 @@ class HomeView extends GetView<HomeController> {
                                   SizedBox(
                                     height: 4,
                                   ),
-                                  Text(
-                                    "New Chapter ${komik.latestChapter}",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "New ${komik.latestChapter}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
+                                      ),
+                                      Icon(Icons.favorite)
+                                    ],
                                   ),
                                 ],
                               ),
