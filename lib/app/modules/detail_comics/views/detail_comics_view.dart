@@ -121,7 +121,6 @@ class DetailComicsView extends GetView<DetailComicsController> {
                     return Card(
                       child: ListTile(
                         onTap: () {
-                          authC.addFavorite(true, snapshot.data!, index);
                           Get.toNamed(Routes.CHAPTER,
                               arguments: detail.chapters![index].param);
                         },

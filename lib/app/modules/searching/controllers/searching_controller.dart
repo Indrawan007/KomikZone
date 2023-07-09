@@ -20,7 +20,7 @@ class SearchingController extends GetxController {
     final apiUrl = 'https://wibutools.live/api/komiku';
 
     try {
-      final response = await http.get(Uri.parse('$apiUrl/$query'));
+      final response = await http.get(Uri.parse('$apiUrl=judul?$query'));
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
         List<Comics> comics = List<Comics>.from(

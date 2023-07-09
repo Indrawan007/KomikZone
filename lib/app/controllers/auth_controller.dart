@@ -202,7 +202,7 @@ class AuthController extends GetxController {
     } else {
       List checkData = await db.query("favorite",
           where:
-              'comic = "${komik.title}" and chapter = "${komik.chapters![indexComic].chapter}" and via = "comic" and index = $indexComic and lastRead = 0');
+              'comic = "${komik.title}" and chapter = "${komik.chapters![indexComic].chapter}" and thumbnail = "${komik.thumbnail}" and via = "comic" and index_chapter = $indexComic and last_read = 0');
       if (checkData.length != 0) {
         // add data
         flagExist = true;
@@ -214,10 +214,10 @@ class AuthController extends GetxController {
         "favorite",
         {
           "comic": "${komik.title}",
-          "thumbnail": "${komik.thumbnail}",
           "chapter": "${komik.chapters![indexComic].chapter}",
+          "thumbnail": "${komik.thumbnail}",
           "via": "comic",
-          "index": indexComic,
+          "index_chapter": indexComic,
           "last_read": lastRead == true ? 1 : 0,
         },
       );

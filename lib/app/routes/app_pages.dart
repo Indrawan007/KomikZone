@@ -7,8 +7,6 @@ import '../modules/chapter/views/chapter_view.dart';
 import '../modules/detail_comics/bindings/detail_comics_binding.dart';
 import '../modules/detail_comics/views/detail_comics_view.dart';
 import '../modules/favorite/bindings/favorite_binding.dart';
-import '../modules/favorite/bindings/favorite_binding.dart';
-import '../modules/favorite/views/favorite_view.dart';
 import '../modules/favorite/views/favorite_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
@@ -73,13 +71,6 @@ class AppPages {
       name: _Paths.FAVORITE,
       page: () => const FavoriteView(),
       binding: FavoriteBinding(),
-      children: [
-        GetPage(
-          name: _Paths.FAVORITE,
-          page: () => const FavoriteView(),
-          binding: FavoriteBinding(),
-        ),
-      ],
     ),
   ];
 }

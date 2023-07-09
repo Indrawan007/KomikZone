@@ -32,11 +32,10 @@ class DatabaseManager {
           CREATE TABLE favorite (
             id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             comic TEXT NOT NULL,
-            thumbnail TEXT NOT NULL,
-            detail TEXT NOT NULL,
             chapter TEXT NOT NULL,
+            thumbnail TEXT NOT NULL,
             via TEXT NOT NULL,
-            index INTEGER NOT NULL,
+            index_chapter INTEGER NOT NULL,
             last_read INTEGER DEFAULT 0
           )
           ''');
